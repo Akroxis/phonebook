@@ -1,24 +1,42 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <HomePage :title="pageTitle"></HomePage>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import HomePage from "./views/HomePage.vue";
 
 export default {
   name: "app",
+  data() {
+    return {
+      pageTitle: "Phonebook"
+    };
+  },
   components: {
-    HelloWorld
+    HomePage
   }
 };
 </script>
 
 <style lang="scss">
+  @font-face {
+    font-family: Roboto-Regular;
+    src: url('./fonts/roboto/Roboto-Regular.ttf');
+  }
+
+  @font-face {
+    font-family: Roboto-Medium;
+    src: url('./fonts/roboto/Roboto-Medium.ttf');
+  }
+
+  @font-face {
+    font-family: Roboto-Bold;
+    src: url('./fonts/roboto/Roboto-Bold.ttf');
+  }
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Roboto-Regular", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
