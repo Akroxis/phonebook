@@ -23,17 +23,17 @@ export default {
 <style lang="scss">
   @font-face {
     font-family: Roboto-Regular;
-    src: url('./fonts/roboto/Roboto-Regular.ttf');
+    src: url('./fonts/Roboto-Regular.ttf');
   }
 
   @font-face {
     font-family: Roboto-Medium;
-    src: url('./fonts/roboto/Roboto-Medium.ttf');
+    src: url('./fonts/Roboto-Medium.ttf');
   }
 
   @font-face {
     font-family: Roboto-Bold;
-    src: url('./fonts/roboto/Roboto-Bold.ttf');
+    src: url('./fonts/Roboto-Bold.ttf');
   }
 #app {
   font-family: "Roboto-Regular", "Avenir", Helvetica, Arial, sans-serif;

@@ -1,38 +1,33 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import instance from "axios";
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    personsList: [
-      {
-        id: 0,
-        name: "Steffen",
-        phone: "+7-905-089-29-29"
-      },
-      {
-        id: 1,
-        name: "Linus",
-        phone: "+7-993-019-21-35"
-      },
-      {
-        id: 2,
-        name: "Raphael",
-        phone: "+7-999-129-23-21"
-      },
-      {
-        id: 3,
-        name: "Sebastian",
-        phone: "+7-921-176-26-26"
-      }
-    ]
+    personsList: []
   },
-  mutations: {},
+  mutations: {
+    setAllContacts(state, payload) {
+      state.personsList = payload;
+    }
+  },
   getters: {
     getCurrentPersonsList(state) {
       return state.personsList;
     }
   },
-  actions: {}
+  actions: {
+    async GET_CONTACTS_LIST({ commit }) {
+      try {
+        const answer = await instance.get("http://localhost:3000/contacts");
+        const data = answer.data;
+        data && commit("setAllContacts", data);
+        return data && answer;
+      } catch (e) {
+        throw new Error(e);
+      }
+    }
+  }
 });

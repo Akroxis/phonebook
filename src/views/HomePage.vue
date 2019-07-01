@@ -23,6 +23,9 @@ export default {
       default: "Default app title"
     }
   },
+  created() {
+    this.$store.dispatch("GET_CONTACTS_LIST");
+  },
   computed: {
     currentPersonsList() {
       return this.$store.getters.getCurrentPersonsList;
