@@ -26,7 +26,7 @@
     >
       <img class="action-image" :src="editImageSrc" alt="Edit this row" />
     </div>
-    <div class="action-cell delete-cell table-title">
+    <div class="action-cell delete-cell table-title" @click="testLog">
       <img
         class="action-image"
         src="../assets/rubbish-bin.svg"
@@ -49,6 +49,10 @@ export default {
       type: String,
       required: true,
       default: "Unknown phone"
+    },
+    id: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -60,16 +64,27 @@ export default {
     };
   },
   methods: {
+    testLog() {
+      console.log(this.id);
+    },
     setInputActivity() {
-      this.isInputDisabled = !this.isInputDisabled;
+        this.isInputDisabled = !this.isInputDisabled;
+      const data = {
+        id: this.id,
+        name: this.personName,
+        phone: this.personPhone
+      };
       if (this.isInputDisabled) {
-        this.editImageSrc = require("../assets/edit.svg");
+        this.$store.dispatch("EDIT_CONTACT", data).then(resolve => {
+          this.editImageSrc = require("../assets/edit.svg");
+        });
       } else {
         this.editImageSrc = require("../assets/check-mark.svg");
         setTimeout(() => {
           this.$refs.personNameInput.focus();
         }, 500);
       }
+
     }
   }
 };

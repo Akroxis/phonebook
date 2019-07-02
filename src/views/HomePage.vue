@@ -2,12 +2,9 @@
   <div class="home-page__content">
     <h1 class="home-page__title">{{ title }}</h1>
     <div class="data__container">
-      <PersonDataTable
-        v-if="checkPersonsList"
-        :personsList="currentPersonsList"
-      ></PersonDataTable>
+      <PersonDataTable :personsList="currentPersonsList"></PersonDataTable>
     </div>
-    <button class="download-button">Download</button>
+    <button class="download-button" @click="$store.dispatch('GET_TEXT_FILE')">Download</button>
   </div>
 </template>
 
@@ -29,9 +26,6 @@ export default {
   computed: {
     currentPersonsList() {
       return this.$store.getters.getCurrentPersonsList;
-    },
-    checkPersonsList() {
-      return !!this.$store.getters.getCurrentPersonsList.length;
     }
   }
 };

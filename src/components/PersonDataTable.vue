@@ -1,7 +1,13 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div class="person-data-table__container">
-    <button class="add-contact__button">Add contact</button>
-    <table class="person-data-table__content" cellpadding="0">
+    <button class="add-contact__button" @click="isModalVisible = true">
+      Add contact
+    </button>
+    <table
+      class="person-data-table__content"
+      cellpadding="0"
+      v-if="checkPersonsList"
+    >
       <thead>
         <tr class="table-titles">
           <th class="first-table-title table-title">Name</th>
@@ -16,47 +22,95 @@
             <PersonDataRow
               :name="person.name"
               :phone="person.phone"
+              :id="person._id"
             ></PersonDataRow>
           </td>
         </tr>
       </tbody>
     </table>
+    <AddContactPop
+      v-if="isModalVisible"
+      title="Add new contact"
+      @close="isModalVisible = false"
+    >
+      <template v-slot:body>
+        <input
+          type="text"
+          placeholder="Person's name"
+          v-model="newContactName"
+          ref="personNameInput"
+        />
+        <input
+          type="text"
+          placeholder="Person's phone"
+          v-model="newContactPhone"
+          ref="personPhoneInput"
+        />
+      </template>
+      <template v-slot:footer>
+        <button class="confirmAdd-btn" @click="addNewUser">Confirm</button>
+      </template>
+    </AddContactPop>
   </div>
 </template>
 
 <script>
 import PersonDataRow from "./PersonDataRow";
+import AddContactPop from "./DefaultPopUp";
 export default {
   name: "PersonDataTable",
-  components: { PersonDataRow },
+  components: { PersonDataRow, AddContactPop },
+  data() {
+    return {
+      isModalVisible: false,
+      newContactName: "",
+      newContactPhone: ""
+    };
+  },
   props: {
     personsList: {
       type: Array,
       required: true,
       default: () => []
     }
+  },
+  computed: {
+    checkPersonsList() {
+      return !!this.$store.getters.getCurrentPersonsList.length;
+    }
+  },
+  methods: {
+    addNewUser() {
+      const data = {
+        name: this.newContactName,
+        phone: this.newContactPhone
+      };
+      this.$store.dispatch("ADD_NEW_CONTACT", data).then(resolve => {
+        this.isModalVisible = false;
+      });
+    }
   }
 };
 </script>
 
 <style scoped lang="scss">
-  .person-data-table__container {
-    width: 60%;
-    margin: 20px auto;
-    display: flex;
-    flex-flow: column nowrap;
-  }
-  .add-contact__button {
-    display: flex;
-    align-self: flex-end;
-    background-color: DodgerBlue;
-    border: none;
-    color: white;
-    padding: 5px 15px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
+.person-data-table__container {
+  width: 60%;
+  margin: 20px auto;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.add-contact__button {
+  display: flex;
+  align-self: flex-end;
+  background-color: DodgerBlue;
+  border: none;
+  color: white;
+  padding: 5px 15px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
 .person-data-table__content {
   width: 100%;
   border-collapse: collapse;
