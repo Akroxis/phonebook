@@ -4,12 +4,14 @@
     <div class="data__container">
       <PersonDataTable :personsList="currentPersonsList"></PersonDataTable>
     </div>
-    <button class="download-button" @click="$store.dispatch('GET_TEXT_FILE')">Download</button>
+    <button class="download-button" @click="downloadPhoneBook">Download</button>
   </div>
 </template>
 
 <script>
 import PersonDataTable from "../components/PersonDataTable";
+import instance from "axios";
+
 export default {
   name: "HomePage",
   components: { PersonDataTable },
@@ -26,6 +28,22 @@ export default {
   computed: {
     currentPersonsList() {
       return this.$store.getters.getCurrentPersonsList;
+    }
+  },
+  methods: {
+    downloadPhoneBook() {
+      instance({
+        url: "http://localhost:3000/contacts/phonebook",
+        method: "GET",
+        responseType: "blob"
+      }).then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", "phonebook.txt");
+        document.body.appendChild(link);
+        link.click();
+      });
     }
   }
 };

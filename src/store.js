@@ -73,18 +73,6 @@ export default new Vuex.Store({
       } catch (e) {
         throw new Error(e);
       }
-    },
-    async GET_TEXT_FILE() {
-      try {
-        const answer = await instance.get(
-          "http://localhost:3000/contacts?textfile=true"
-        );
-        const data = answer.data;
-        console.log(data);
-        return data && answer;
-      } catch (e) {
-        throw new Error(e);
-      }
     }
   }
 });
