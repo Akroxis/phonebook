@@ -68,7 +68,7 @@ export default {
       console.log(this.id);
     },
     setInputActivity() {
-        this.isInputDisabled = !this.isInputDisabled;
+      this.isInputDisabled = !this.isInputDisabled;
       const data = {
         id: this.id,
         name: this.personName,
@@ -84,7 +84,6 @@ export default {
           this.$refs.personNameInput.focus();
         }, 500);
       }
-
     }
   }
 };

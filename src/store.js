@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import instance from "axios";
-
+const BACKEND_URL = "http://localhost:3000";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -29,7 +29,7 @@ export default new Vuex.Store({
   actions: {
     async GET_CONTACTS_LIST({ commit }) {
       try {
-        const answer = await instance.get("http://localhost:3000/contacts");
+        const answer = await instance.get(`${BACKEND_URL}/contacts`);
         const data = answer.data;
         data && commit("setAllContacts", data);
         return data && answer;
@@ -39,10 +39,7 @@ export default new Vuex.Store({
     },
     async ADD_NEW_CONTACT({ commit }, payload) {
       try {
-        const answer = await instance.post(
-          "http://localhost:3000/contacts",
-          payload
-        );
+        const answer = await instance.post(`${BACKEND_URL}/contacts`, payload);
         const data = answer.data;
         data && commit("addNewContact", data);
         return data && answer;
@@ -53,7 +50,7 @@ export default new Vuex.Store({
     async EDIT_CONTACT({ commit }, payload) {
       try {
         const answer = await instance.put(
-          `http://localhost:3000/contacts?id=${payload.id}`,
+          `${BACKEND_URL}/contacts?id=${payload.id}`,
           payload
         );
         const data = answer.data;
@@ -66,7 +63,7 @@ export default new Vuex.Store({
     async DELETE_CONTACT({ commit }, payload) {
       try {
         const answer = instance.delete(
-          `http://localhost:3000/contacts?id=${payload.id}`
+          `${BACKEND_URL}/contacts?id=${payload.id}`
         );
         answer && commit("removeContact", payload);
         return answer && answer;

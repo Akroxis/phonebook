@@ -21,20 +21,20 @@ export default {
 </script>
 
 <style lang="scss">
-  @font-face {
-    font-family: Roboto-Regular;
-    src: url('./fonts/Roboto-Regular.ttf');
-  }
+@font-face {
+  font-family: Roboto-Regular;
+  src: url("./fonts/Roboto-Regular.ttf");
+}
 
-  @font-face {
-    font-family: Roboto-Medium;
-    src: url('./fonts/Roboto-Medium.ttf');
-  }
+@font-face {
+  font-family: Roboto-Medium;
+  src: url("./fonts/Roboto-Medium.ttf");
+}
 
-  @font-face {
-    font-family: Roboto-Bold;
-    src: url('./fonts/Roboto-Bold.ttf');
-  }
+@font-face {
+  font-family: Roboto-Bold;
+  src: url("./fonts/Roboto-Bold.ttf");
+}
 #app {
   font-family: "Roboto-Regular", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
